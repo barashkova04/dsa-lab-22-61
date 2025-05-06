@@ -6,7 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils import executor
 from dotenv import load_dotenv
-load_dotenv()
+
 #load_dotenv()
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
