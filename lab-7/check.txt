@@ -1,0 +1,9 @@
+# Позитивные тесты
+(3, 3, 3) - equilateral
+(3, 3, 2) - isosceles
+(3, 4, 5) - nonequilateral
+
+# Негативные тесты
+(0, 3, 3) - Exception
+(1, 2, 10) - Exception
+(-1, 3, 3) - Exception
