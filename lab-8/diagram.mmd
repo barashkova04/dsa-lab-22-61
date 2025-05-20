@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant User as Пользователь
+    participant Bot as Telegram-бот
+    participant CM as currency-manager
+    participant CV as convertor
+
+    %% Шаг а: Пользователь отправляет запрос на добавление валюты
+    User->>Bot: /manage_currency USD 90.50
+    activate Bot
+    Note right of Bot: Принимает команду /manage_currency
+
+    %% Шаг б: Бот отправляет запрос к currency-manager
+    Bot->>CM: POST /add_currency {currency: "USD", rate: 90.50}
+    activate CM
+    Note right of CM: Сохраняет валюту и курс
+    CM-->>Bot: {status: "success"}
+    deactivate CM
+
+    %% Шаг в: Бот возвращает ответ пользователю
+    Bot-->>User: Валюта USD добавлена с курсом 90.50 RUB
+    deactivate Bot
+
+    %% Шаг г: Пользователь отправляет запрос на конвертацию
+    User->>Bot: /convert USD 100
+    activate Bot
+    Note right of Bot: Принимает команду /convert
+
+    %% Шаг д: Бот отправляет запрос к convertor
+    Bot->>CV: POST /convert {currency: "USD", amount: 100}
+    activate CV
+    Note right of CV: Выполняет конвертацию (100 * 90.50)
+    CV-->>Bot: {result: 9050, currency: "RUB"}
+    deactivate CV
+
+    %% Шаг е: Бот возвращает результат пользователю
+    Bot-->>User: 100 USD = 9050 RUB
+    deactivate Bot
